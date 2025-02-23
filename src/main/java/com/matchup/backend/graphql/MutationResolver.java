@@ -1,6 +1,7 @@
 package com.matchup.backend.graphql;
 
 
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 
@@ -12,6 +13,7 @@ import com.matchup.backend.repository.MatchRepository;
 import com.matchup.backend.repository.UserRepository;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Controller
 public class MutationResolver {
@@ -26,7 +28,10 @@ public class MutationResolver {
     }
 
     @MutationMapping
-    public User createUser(String name, String email, String role) {
+    public User createUser(
+        @Argument String name, 
+        @Argument String email, 
+        @Argument String role) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
@@ -35,7 +40,8 @@ public class MutationResolver {
     }
 
     @MutationMapping
-    public Ladder createLadder(String name) {
+    public Ladder createLadder(
+        @Argument String name) {
         Ladder ladder = new Ladder();
         ladder.setName(name);
         ladder.setPlayerIds(new ArrayList<>());
@@ -43,7 +49,12 @@ public class MutationResolver {
     }
 
     @MutationMapping
-    public Match reportMatch(String ladderId, String player1Id, String player2Id, String score, String winnerId) {
+    public Match reportMatch(
+        @Argument String ladderId, 
+        @Argument String player1Id, 
+        @Argument String player2Id, 
+        @Argument String score, 
+        @Argument String winnerId) {
         Match match = new Match();
         match.setLadderId(ladderId);
         match.setPlayer1Id(player1Id);
