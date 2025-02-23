@@ -13,7 +13,6 @@ import com.matchup.backend.repository.MatchRepository;
 import com.matchup.backend.repository.UserRepository;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Controller
 public class MutationResolver {
@@ -56,11 +55,13 @@ public class MutationResolver {
         @Argument String score, 
         @Argument String winnerId) {
         Match match = new Match();
+
+        // validate users function should go here...
         match.setLadderId(ladderId);
-        match.setPlayer1Id(player1Id);
-        match.setPlayer2Id(player2Id);
+        match.setPlayer1Id(userRepository.findById(player1Id).get());
+        match.setPlayer2Id(userRepository.findById(player2Id).get());
         match.setScore(score);
-        match.setWinnerId(winnerId);
+        match.setWinnerId(userRepository.findById(player2Id).get());
         return matchRepository.save(match);
     }
 }

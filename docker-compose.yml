@@ -9,8 +9,21 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
     volumes:
       - mongodb_data:/data/db
+  app:
+      image: matchup-backend-image
+      depends_on:
+      - mongodb
+      ports:
+        - "8080:8080"
+      environment:
+        SPRING_DATA_MONGODB_URI: mongodb://root:example@host.docker.internal:27017/matchup?authSource=admin
 
 volumes:
   mongodb_data:

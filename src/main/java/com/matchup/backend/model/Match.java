@@ -10,8 +10,8 @@ public class Match {
     @Id
     private String id;
     private String ladderId;
-    private String player1Id;
-    private String player2Id;
+    private User player1Id;
+    private User player2Id;
     private String score;
-    private String winnerId;
+    private User winnerId;
 }
