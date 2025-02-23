@@ -20,10 +20,7 @@ dependencies {
 	// Database
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	// GraphQl
-	implementation 'com.graphql-java-kickstart:graphql-java-tools:13.1.1'
-	implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:11.0.0'
-	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'
-	implementation 'com.graphql-java-kickstart:playground-spring-boot-starter:11.0.0'
+	 implementation 'org.springframework.boot:spring-boot-starter-graphql'
 	// Firebase Admin SDK
 	implementation 'com.google.firebase:firebase-admin:9.2.0'
 	// JWT for handling authentication
@@ -41,7 +38,6 @@ dependencies {
 	// Testing
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework:spring-webflux'
-	testImplementation 'org.springframework.graphql:spring-graphql-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

@@ -1,7 +1,8 @@
 package com.matchup.backend.graphql;
 
 
-import org.springframework.stereotype.Component;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 
 import com.matchup.backend.model.Ladder;
 import com.matchup.backend.model.Match;
@@ -10,11 +11,10 @@ import com.matchup.backend.repository.LadderRepository;
 import com.matchup.backend.repository.MatchRepository;
 import com.matchup.backend.repository.UserRepository;
 
-import graphql.kickstart.tools.GraphQLQueryResolver;
 import java.util.List;
 
-@Component
-public class QueryResolver implements GraphQLQueryResolver {
+@Controller
+public class QueryResolver {
     private final UserRepository userRepository;
     private final LadderRepository ladderRepository;
     private final MatchRepository matchRepository;
@@ -25,14 +25,17 @@ public class QueryResolver implements GraphQLQueryResolver {
         this.matchRepository = matchRepository;
     }
 
+    @QueryMapping
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
+    @QueryMapping
     public List<Ladder> getLadders() {
         return ladderRepository.findAll();
     }
 
+    @QueryMapping
     public List<Match> getMatches(String ladderId) {
         return matchRepository.findByLadderId(ladderId);
     }
