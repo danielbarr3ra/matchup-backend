@@ -1,0 +1,35 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: String! # "PLAYER" or "ADMIN"
+}
+
+type Ladder {
+    id: ID!
+    name: String!
+    players: [User]!
+}
+
+type Match {
+    id: ID!
+    ladderId: ID!
+    player1: User!
+    player2: User!
+    score: String
+    winnerId: User
+}
+
+# Queries to fetch data
+type Query {
+    getUsers: [User]
+    getLadders: [Ladder]
+    getMatches(ladderId: ID!): [Match]
+}
+
+# Mutations to modify data
+type Mutation {
+    createUser(name: String!, email: String!, role: String!): User
+    createLadder(name: String!): Ladder
+    reportMatch(ladderId: ID!, player1Id: ID!, player2Id: ID!, score: String!, winnerId: ID!): Match
+}

@@ -1,0 +1,50 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// We are using a servelet application
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Database
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	// GraphQl
+	implementation 'com.graphql-java-kickstart:graphql-java-tools:13.1.1'
+	implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:11.0.0'
+	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'
+	implementation 'com.graphql-java-kickstart:playground-spring-boot-starter:11.0.0'
+	// Firebase Admin SDK
+	implementation 'com.google.firebase:firebase-admin:9.2.0'
+	// JWT for handling authentication
+    implementation 'io.jsonwebtoken:jjwt:0.12.1'
+	
+	// Spring Security for Authentication
+	// implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+	// Lombok not going to write all that boiler code!!
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework:spring-webflux'
+	testImplementation 'org.springframework.graphql:spring-graphql-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
