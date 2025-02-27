@@ -1,6 +1,7 @@
 package com.matchup.backend.graphql;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
@@ -11,14 +12,19 @@ import com.matchup.backend.model.User;
 import com.matchup.backend.repository.LadderRepository;
 import com.matchup.backend.repository.MatchRepository;
 import com.matchup.backend.repository.UserRepository;
+import com.matchup.backend.services.UserService;
 
 import java.util.ArrayList;
 
 @Controller
 public class MutationResolver {
+    // we should be going through a service for each of the types of schemas.
+    @Autowired
+    UserService userService;
     private final UserRepository userRepository;
     private final LadderRepository ladderRepository;
     private final MatchRepository matchRepository;
+
 
     public MutationResolver(UserRepository userRepository, LadderRepository ladderRepository, MatchRepository matchRepository) {
         this.userRepository = userRepository;
@@ -63,5 +69,26 @@ public class MutationResolver {
         match.setScore(score);
         match.setWinnerId(userRepository.findById(player2Id).get());
         return matchRepository.save(match);
+    }
+
+    @MutationMapping
+    public User registerUser(
+        @Argument String email, 
+        @Argument String password, 
+        @Argument String name){
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setName(name);
+
+        return userService.registerUser(user);
+    }
+
+    @MutationMapping
+    public String loginUser(
+        @Argument String email, 
+        @Argument String password
+        ){
+        return userService.loginUser(email, password);
     }
 }

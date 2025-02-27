@@ -20,9 +20,9 @@ public class FirebaseConfig {
             throw new IOException("Firebase service account file not found!");
         }
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
+        //Getting around deprecated builder.
+        FirebaseOptions.Builder optionsBuilder =  FirebaseOptions.builder();
+        FirebaseOptions options = optionsBuilder.setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
 
         return FirebaseApp.initializeApp(options);
     }
