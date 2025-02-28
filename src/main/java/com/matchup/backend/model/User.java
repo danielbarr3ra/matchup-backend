@@ -13,4 +13,5 @@ public class User {
     private String name;
     private String email;
     private String role; // "PLAYER" or "ADMIN"
+    private String password;
 }
